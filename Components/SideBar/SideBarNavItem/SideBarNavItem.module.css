@@ -1,0 +1,25 @@
+.navItem {
+    color: white;
+    text-align: center;
+}
+.active {
+    color: rgb(66, 235, 244);
+}
+.menuItem {
+    height: 30px;
+    width: 100px;
+    text-align: center;
+    color: rgb(66, 235, 244);
+    padding-top: 10px;
+    border: 1px solid rgb(12, 12, 12);
+}
+.menuItem :hover {
+    height: 100%;
+    width: 100%;
+}
+.activeItemBlock {
+    color: rgb(66, 235, 244);
+    padding-top: 10px;
+    border: 1px solid rgb(66, 235, 244);
+    border-radius: 10px;
+}
