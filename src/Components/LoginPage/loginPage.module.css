@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginTitleBlock {
+    display: flex;
+    justify-content: space-around;
+}
+
+.RegistrationFormBlock {
+
+}
+
+.error{
+    color:red;
+}
+.captchaBlock{
+    padding: 10px 0 0 0;
+    display: grid;
+    grid-template-rows: 2fr;
+    grid-row-gap: 5px;
+}
+.captchaImg{
+    grid-row: 1;
+}
+.captchaTextField{
+    grid-row: 2;
+}

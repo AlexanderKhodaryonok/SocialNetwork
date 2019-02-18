@@ -1,0 +1,9 @@
+.wrapper {
+
+    margin: 10px 0 10px 5px;
+}
+.backgroundPicture {
+    height: 200px;
+    width: 100%;
+    border-radius: 10px;
+}

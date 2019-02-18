@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0 0 0;
+}
+.avatar {
+    height: 150px;
+    border-radius: 10px;
+}
+.infoList {
+    list-style-type: none;
+    margin: 0 0 0 30px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+.status{
+    margin: 0 0 20px 0;
+    color: white;
+
+}
+.name {
+    margin: 0 0 10px 0;
+    font-size: 30px;
+    color: rgb(66, 235, 244);
+}
+
+.hide {
+    display: none;
+}

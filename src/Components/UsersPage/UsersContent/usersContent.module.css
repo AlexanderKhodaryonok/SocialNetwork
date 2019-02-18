@@ -1,0 +1,21 @@
+.wrapper {
+    margin: 0 0 0 10px;
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+}
+.itemsBlock {
+
+}
+.item {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+.image {
+    border-radius: 10px;
+    height: 150px;
+    width: 150px;
+}
+.status {
+    margin: 20px 0 0 0;
+}

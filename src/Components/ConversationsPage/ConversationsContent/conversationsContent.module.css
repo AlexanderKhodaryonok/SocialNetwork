@@ -1,0 +1,46 @@
+.wrapper {
+    height: 60vh;
+    width: 100%;
+}
+.title{
+    text-align: center;
+    color: white;
+    border-bottom: 1px solid rgb(66, 235, 244);
+    padding: 0 0 5px 0;
+    width: 98%;
+    margin: 10px auto;
+}
+.backgroundPicture {
+
+}
+.conversationsList {
+    width: 200px;
+}
+.content {
+    display: grid;
+    grid-template-columns: 3fr 10fr;
+    height: 60vh;
+}
+.messagesList {
+    margin: -20px 0 0 0;
+}
+.noMessages{
+    color: rgb(66, 235, 244);
+    margin: 50px 0 0 30px;
+    display: flex;
+    justify-content: center;
+    border-left: 1px solid black;
+}
+.noMessages div{
+    background-color: #343235;
+    width: 200px;
+    height: 30px;
+    border-radius: 20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+
+}
+a {
+    text-decoration: none;
+}
