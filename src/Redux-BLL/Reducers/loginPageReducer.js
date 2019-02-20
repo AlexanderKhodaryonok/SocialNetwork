@@ -1,4 +1,3 @@
-import {guid} from "../store";
 import {me, setIsAuth} from "./AuthReducer";
 import axios from '../axios/axios-instance'
 
@@ -20,29 +19,48 @@ export const statuses = {
 };
 
 const loginPageReducer = (state = initialState, action) => {
-    let stateCopy = makeCopyLoginPage(state);
     switch (action.type) {
+
         case REMEMBER_ME:
-            stateCopy.rememberMe = action.rememberMe;
-            return stateCopy;
+            return {
+                ...state,
+                rememberMe: action.rememberMe
+            };
         case CHANGE_LOGIN:
-            stateCopy.login.text = action.text;
-            return stateCopy;
+            return {
+                ...state,
+                login: {
+                    ...state.login,
+                    text: action.text
+                }
+            };
         case CHANGE_PASSWORD:
-            stateCopy.password.text = action.text;
-            return stateCopy;
+            return {
+                ...state, password: {
+                    ...state.password,
+                    text: action.text
+                }
+            };
         case SET_STATUS:
-            stateCopy.status = action.status;
-            return stateCopy;
+            return {
+                ...state,
+                status: action.status
+            };
         case SET_MESSAGE:
-            stateCopy.message = action.text;
-            return stateCopy;
+            return {
+                ...state,
+                massage: action.text
+            };
         case CHANGE_CAPTCHA:
-            stateCopy.captchaText = action.text;
-            return stateCopy;
+            return {
+                ...state,
+                captchaText: action.text
+            };
         case SET_CAPTCHA:
-            stateCopy.captchaUrl = action.url;
-            return stateCopy;
+            return {
+                ...state,
+                captchaUrl: action.url
+            };
         default:
             return state;
     }
@@ -95,12 +113,3 @@ let initialState = {
     password: { id: 1, text: null },
     login: { id: 2, text: null }
 };
-
-function makeCopyLoginPage(state) {
-    let stateCopy = {
-        ...state,
-        password: {...state.password},
-        login: {...state.login}
-    };
-    return stateCopy;
-}

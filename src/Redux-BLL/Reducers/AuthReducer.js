@@ -56,34 +56,3 @@ export const me = () => (dispatch) => {
             }
         })
 };
-
-function makeCopyAuthData(state) {
-    let stateCopy = {
-        ...state,
-        userInfo: {
-            ...state.userInfo
-        }
-    };
-    return stateCopy;
-}
-
-/*
-const authReducer = (state = initialState, action) => {
-    let stateCopy;
-    switch (action.type) {
-        case SET_IS_AUTH:
-            stateCopy = makeCopyAuthData(state);
-            stateCopy.isAuth = action.value;
-            return stateCopy;
-        case SET_USER_INFO:
-            stateCopy = makeCopyAuthData(state);
-            stateCopy.userInfo.userName = action.userName;
-            stateCopy.userInfo.userId = action.userId;
-            return stateCopy;
-        default:
-            return state;
-    }
-};
-
-export default authReducer;
-*/

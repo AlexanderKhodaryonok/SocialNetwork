@@ -1,10 +1,10 @@
 import {guid} from "../store";
 import Interlocutor from "../../Images/Interlocutor.png";
 
-function findConversation(id, stateCopy) {
+function findConversation(id, state) {
     let index;
     if (!!id){
-        stateCopy.currentConversation = stateCopy.conversations.find((conv, idx) => {
+        state.currentConversation = state.conversations.find((conv, idx) => {
             if (id == conv.id) {
                 index = idx;
                 return true
@@ -23,13 +23,13 @@ const conversationsPageReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_CURRENT_MESSAGE:
             return {
-                ...state, currentWritingMessage: {
+                ...state,
+                currentWritingMessage: {
                     text: action.text
                 }
             };
 
         case ADD_MESSAGE:
-            let stateCopy = makeCopyConversationsPage(state);
             let newMessage = {
                 id: guid(),
                 img: 'https://s00.yaplakal.com/pics/pics_original/5/9/2/10925295.jpg',
@@ -37,30 +37,25 @@ const conversationsPageReducer = (state = initialState, action) => {
                 text: action.text
             };
 
-            let conversationId = findConversation(action.id, stateCopy);
-            stateCopy.conversations[conversationId].messages.push(newMessage);
-            stateCopy.currentWritingMessage.text = '';
-            return stateCopy;
-
-            /*let conversationId = findConversation(action.id, state);
-            return {...state,
-                currentWritingMessage: { text: ''},
-                ...state.conversations = [
-                    ...state.conversations, ...state.conversations[conversationId] = [
-                        ...state.conversations[conversationId], ...newMessage
-                    ]
-                ],
-            };*/
+            let conversationId = findConversation(action.id, state);
+            return {
+                ...state,
+                ...state.conversations[conversationId].messages.push(newMessage),
+                currentWritingMessage: {
+                    ...state.currentWritingMessage,
+                    text: ''
+                }
+            };
 
         case GET_CONVERSATION:
-            stateCopy = makeCopyConversationsPage(state);
-            stateCopy.currentConversation = state.conversations.filter(conversation => conversation.id === +action.id)[0];
-            return stateCopy;
+            return {
+                ...state,
+                currentConversation: state.conversations.filter(conversation => conversation.id === +action.id)[0]
+            };
 
         case SET_ID:
-            stateCopy = makeCopyConversationsPage(state);
-            stateCopy.currentConversationId = action.id;
-            return {...state,
+            return {
+                ...state,
                 currentConversationId: action.id
             };
 
@@ -120,63 +115,3 @@ let initialState = {
         },
     ],
 };
-
-
-function makeCopyConversationsPage(state) {
-    let stateCopy = {
-        currentConversationId: {...state.currentConversationId},
-        currentConversation: {...state.currentConversation},
-        currentWritingMessage: {...state.currentWritingMessage},
-        conversations: state.conversations.map(conversation => {
-            return {
-                id: conversation.id,
-                name: conversation.name,
-                messages: conversation.messages.map(message => {
-                    return {...message}
-                })
-            }
-        })
-    };
-    return stateCopy;
-}
-
-/*
-const conversationsPageReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case CHANGE_CURRENT_MESSAGE:
-            debugger
-            let stateCopy = makeCopyConversationsPage(state);
-            stateCopy.currentWritingMessage.text = action.text;
-            return stateCopy;
-
-        case ADD_MESSAGE:
-            stateCopy = makeCopyConversationsPage(state);
-            let newMessage = {
-                id: guid(),
-                img: 'https://s00.yaplakal.com/pics/pics_original/5/9/2/10925295.jpg',
-                name: 'Me',
-                text: action.text
-            };
-
-            let conversationId = findConversation(action.id, stateCopy);
-            stateCopy.conversations[conversationId].messages.push(newMessage);
-            stateCopy.currentWritingMessage.text = '';
-            return stateCopy;
-
-        case GET_CONVERSATION:
-            stateCopy = makeCopyConversationsPage(state);
-            stateCopy.currentConversation = state.conversations.filter(conversation => conversation.id === +action.id)[0];
-            return stateCopy;
-
-        case SET_ID:
-            stateCopy = makeCopyConversationsPage(state);
-            stateCopy.currentConversationId = action.id;
-            return stateCopy;
-
-        default:
-            return state;
-    }
-};
-
-export default conversationsPageReducer;
- */

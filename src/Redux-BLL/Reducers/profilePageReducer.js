@@ -32,6 +32,60 @@ const profilePageReducer = (state = initialState, action) => {
             };
 
         case CHANGE_CURRENT_NOTE:
+            return {
+                ...state,
+                currentWritingNote: {
+                    ...state.currentWritingNote,
+                    text: action.text
+                }
+            };
+
+        case ADD_NOTE:
+            let newNote = {
+                id: guid(),
+                text: action.text
+            };
+            return {
+                ...state,
+                myNotes: [newNote, ...state.myNotes],
+                currentWritingNote: {
+                    ...state.currentWritingNote,
+                    text: ''
+                }
+            };
+
+        case SET_MY_ID:
+            return {
+                ...state, userId: action.id
+            };
+
+        default:
+            return state;
+    }
+};
+/*
+const profilePageReducer = (state = initialState, action) => {
+    switch (action.type) {
+
+        case CHANGE_FLAG:
+            return {
+                ...state,
+                flag: !action.bool
+            };
+
+        case CHANGE_USER_STATUS:
+            return {
+                ...state,
+                userStatus: action.text
+            };
+
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status
+            };
+
+        case CHANGE_CURRENT_NOTE:
             let stateCopy = makeCopyProfilePage(state);
             stateCopy.currentWritingNote.text = action.text;
             return stateCopy;
@@ -56,6 +110,7 @@ const profilePageReducer = (state = initialState, action) => {
     }
 };
 
+ */
 export default profilePageReducer
 //actionCreators
 export const onPostChange = (text) => ({ type: CHANGE_CURRENT_NOTE, text: text.currentTarget.value });
@@ -96,7 +151,6 @@ export const getProfile = (userId) => {
         dispatch(setStatus(statuses.IN_PROGRESS));
         axios.get (`profile/${userId}`)
             .then(res => {
-                debugger
             })
     };
 };

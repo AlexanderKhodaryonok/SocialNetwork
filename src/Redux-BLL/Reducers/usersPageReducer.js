@@ -45,7 +45,6 @@ export const clearUsers = () => ({type: CLEAR_USERS});
 export const getUsers = (page , count = 5) => (dispatch) => {
     dispatch(setStatus(statuses.IN_PROGRESS));
     axios.get(`users?page=${page}&count=${count}`).then (res =>{
-        debugger
         dispatch(setStatus(statuses.SUCCESS));
         dispatch(setUsers(res.data.items));
 
