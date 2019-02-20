@@ -20,14 +20,13 @@ const LoginPage = (props) => {
         ];
 
     let loginTitleTags = loginTitleText.map((el) => {
-        return <LoginTitle key={el.id} text={el.text}/>
+        return <LoginTitle className={style.title} key={el.id} text={el.text}/>
     });
 
     let errorMessageBlock = props.status === statuses.ERROR && <div className={style.error}>{props.message}</div>;
 
     let captchaBlock = props.captchaUrl && props.status === statuses.ERROR && <div className={style.captchaBlock}>
-        <img className={style.captchaImg} src={props.captchaUrl} alt="captcha"
-        />
+        <img className={style.captchaImg} src={props.captchaUrl} alt="captcha" />
         <input className={style.captchaTextField} type="text" onChange={props.changeCaptcha}/>
     </div>;
 
@@ -36,7 +35,6 @@ const LoginPage = (props) => {
             {props.status === statuses.IN_PROGRESS ?
             <InProgressPage /> :
             <div className={style.wrapper}>
-                alexanderkhodaryonok@gmail.com
                 <div className={style.loginTitleBlock}>
                     {loginTitleTags}
                 </div>

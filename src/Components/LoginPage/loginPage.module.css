@@ -2,17 +2,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 1px solid rgb(66, 235, 244);
+    padding: 50px;
+    margin: 10% auto;
+    border-radius: 20px;
+    background-color: #c1c1c1;
 }
-
 .loginTitleBlock {
     display: flex;
     justify-content: space-around;
 }
-
 .RegistrationFormBlock {
 
 }
-
 .error{
     color:red;
 }
