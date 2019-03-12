@@ -1,4 +1,3 @@
-import {setStatus, statuses} from "./loginPageReducer";
 import axios from '../axios/axios-instance';
 
 const initialState = {
@@ -37,22 +36,46 @@ export default authReducer;
 export const setIsAuth = (bool) => ({type: SET_IS_AUTH, value: bool});
 export const setUserInfo = (userId, userName,) => ({type: SET_USER_INFO, userId, userName});
 
-export const logout = () => (dispatch) => {
-    axios.post('auth/logout')
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setIsAuth(false));
-                dispatch(setUserInfo(null, null));
-            }
-        })
+export const logout = () => {
+    return async  (dispatch) => {
+        try {
+            await axios.post('auth/logout')
+            dispatch(setIsAuth(false));
+            dispatch(setUserInfo(null, null));
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+};
+//     export const logout = () => (dispatch) => {
+//     axios.post('auth/logout')
+//         .then(res => {
+//             if (res.data.resultCode === 0) {
+//                 dispatch(setIsAuth(false));
+//                 dispatch(setUserInfo(null, null));
+//             }
+//         })
+// };
+
+export const me = () => {
+    return async (dispatch) => {
+        try {
+            const success = await axios.get('auth/me');
+            dispatch(setIsAuth(true));
+            dispatch(setUserInfo(success.data.data.id, success.data.data.login));
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
 };
 
-export const me = () => (dispatch) => {
-    axios.get('auth/me')
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setIsAuth(true));
-                dispatch(setUserInfo(res.data.data.id, res.data.data.login));
-            }
-        })
-};
+// export const me = () => (dispatch) => {
+//     axios.get('auth/me')
+//         .then(res => {
+//             if (res.data.resultCode === 0) {
+//                 dispatch(setIsAuth(true));
+//                 dispatch(setUserInfo(res.data.data.id, res.data.data.login));
+//             }
+//         })
+// };

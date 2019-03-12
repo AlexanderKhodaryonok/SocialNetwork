@@ -7,9 +7,10 @@ import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import {changeCaptcha, statuses} from "../../Redux-BLL/Reducers/loginPageReducer";
 import InProgressPage from "../InProgressPage/InProgressPage";
+import PropTypes from 'prop-types';
 
-const LoginPage = (props) => {
-    if (props.isAuth) {
+const LoginPage = ({isAuth, status, captchaUrl, changeCaptcha, message}) => {
+    if (isAuth) {
         return <Redirect to='/profile'/>
     }
 
@@ -23,16 +24,16 @@ const LoginPage = (props) => {
         return <LoginTitle className={style.title} key={el.id} text={el.text}/>
     });
 
-    let errorMessageBlock = props.status === statuses.ERROR && <div className={style.error}>{props.message}</div>;
+    let errorMessageBlock = status === statuses.ERROR && <div className={style.error}>{message}</div>;
 
-    let captchaBlock = props.captchaUrl && props.status === statuses.ERROR && <div className={style.captchaBlock}>
-        <img className={style.captchaImg} src={props.captchaUrl} alt="captcha" />
-        <input className={style.captchaTextField} type="text" onChange={props.changeCaptcha}/>
+    let captchaBlock = captchaUrl && status === statuses.ERROR && <div className={style.captchaBlock}>
+        <img className={style.captchaImg} src={captchaUrl} alt="captcha" />
+        <input className={style.captchaTextField} type="text" onChange={changeCaptcha}/>
     </div>;
 
     return (
         <>
-            {props.status === statuses.IN_PROGRESS ?
+            {status === statuses.IN_PROGRESS ?
             <InProgressPage /> :
             <div className={style.wrapper}>
                 <div className={style.loginTitleBlock}>
@@ -51,6 +52,14 @@ const LoginPage = (props) => {
             </div>}
         </>
     );
+};
+
+LoginPage.propTypes = {
+    isAuth: PropTypes.bool,
+    status: PropTypes.string,
+    captchaUrl: PropTypes.string,
+    changeCaptcha: PropTypes.func,
+    message: PropTypes.string
 };
 
 const mapStateToProps = (state) => {

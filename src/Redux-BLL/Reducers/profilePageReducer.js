@@ -122,6 +122,23 @@ export const setMyId = (id) => ({type: SET_MY_ID, id});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 //thunkCreators
 export const setUserStatus = (userStatus) => {
+    return async (dispatch, getState) => {
+        try {
+            userStatus = getState().profilePage.userStatus;
+            dispatch(setStatus(statuses.IN_PROGRESS));
+            await axios.put ('profile/status', {
+                status: userStatus
+                }
+            );
+            dispatch(setStatus(statuses.SUCCESS));
+        }
+        catch (error) {
+            alert(error.message);
+        }
+    };
+};
+/*
+export const setUserStatus = (userStatus) => {
     return (dispatch, getState) => {
         userStatus = getState().profilePage.userStatus;
         dispatch(setStatus(statuses.IN_PROGRESS));
@@ -134,6 +151,22 @@ export const setUserStatus = (userStatus) => {
         })
     };
 };
+ */
+export const getUserStatus = (userStatus, userId) => {
+    return async (dispatch, getState) => {
+        try {
+            userId = getState().authData.userInfo.userId;
+            dispatch(setStatus(statuses.IN_PROGRESS));
+            const success = await axios.get (`profile/status/${userId}`);
+            dispatch(setStatus(statuses.SUCCESS));
+            dispatch(changeUserStatus(success.data));
+        }
+        catch (error) {
+            alert(error.message);
+        }
+    };
+};
+/*
 export const getUserStatus = (userStatus, userId) => {
     return (dispatch, getState) => {
         userId = getState().authData.userInfo.userId;
@@ -145,6 +178,20 @@ export const getUserStatus = (userStatus, userId) => {
         })
     };
 };
+ */
+export const getProfile = (userId) => {
+    return async (dispatch, getState) => {
+        try {
+            userId = getState().profilePage.userId;
+            dispatch(setStatus(statuses.IN_PROGRESS));
+            await axios.get (`profile/${userId}`)
+        }
+        catch (error) {
+            alert(error.message);
+        }
+    };
+};
+/*
 export const getProfile = (userId) => {
     return (dispatch, getState) => {
         userId = getState().profilePage.userId;
@@ -154,6 +201,7 @@ export const getProfile = (userId) => {
             })
     };
 };
+ */
 
 let initialState = {
     aboutMe: null,
@@ -192,19 +240,19 @@ let initialState = {
     ]
 };
 
-function makeCopyProfilePage(state) {
-
-    let stateCopy = {
-        ...state,
-        myNotes: state.myNotes.map(note => {
-            return { ...note }
-        }),
-        userInformationItems: state.userInformationItems.map(item => {
-            return { ...item }
-        }),
-    };
-    return stateCopy;
-}
+// function makeCopyProfilePage(state) {
+//
+//     let stateCopy = {
+//         ...state,
+//         myNotes: state.myNotes.map(note => {
+//             return { ...note }
+//         }),
+//         userInformationItems: state.userInformationItems.map(item => {
+//             return { ...item }
+//         }),
+//     };
+//     return stateCopy;
+// }
 
 /*
 let initialState = {

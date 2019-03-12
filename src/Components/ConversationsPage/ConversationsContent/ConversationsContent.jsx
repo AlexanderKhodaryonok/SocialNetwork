@@ -5,20 +5,19 @@ import Conversations from './Conversations/Conversations';
 import Messages from './Messages/Messages';
 import {connect} from "react-redux";
 import {getConversation} from "../../../Redux-BLL/Reducers/conversationsPageReducer";
-
-const ConversationsContent = (props) => {
+import PropTypes from 'prop-types';
+//const HOCConversationsContent = () => {
+const ConversationsContent = ({conversations, currentConversationId, currentConversation, getConversation, match}) => {
     //синхронизация url & id даилога в store
-    let outOfSyncState = (!props.currentConversation && !!+props.match.params.id) ||//currentConversation = null, id from url != null
-        (!!props.currentConversation && !!+props.match.params.id && +props.match.params.id !== props.currentConversation.id); //
+    let outOfSyncState = (!currentConversation && !!+match.params.id) ||//currentConversation = null, id from url != null
+        (!!currentConversation && !!+match.params.id && +match.params.id !== currentConversation.id); //
 
     if (outOfSyncState) {
-        props.getConversation(props.match.params.id);
+        getConversation(match.params.id);
         return null;
     }
 
-    let conversationListTags = props.conversations.map((conversation) => {
-        let isConversationSelected = props.currentConversationId === conversation.id;
-        //let cssClasses = isConversationSelected ? style.selected : '';
+    let conversationListTags = conversations.map((conversation) => {
         return <Conversations key={conversation.id}
                               cssClasses={'cssClasses'}
                               conversation={conversation}/>
@@ -34,9 +33,9 @@ const ConversationsContent = (props) => {
                 </div>
                 </div>
                 {   //если в url есть id, то показываю диалог, если нет, то уведомление о выборе диалога
-                    props.match.params.id !== undefined ?
+                    match.params.id !== undefined ?
                         <div className={style.messagesList}>
-                            <Messages match={props.match}/>
+                            <Messages match={match} />
                         </div> : <div className={style.noMessages}> <div>Choose Conversation</div>  </div>
                 }
             </div>
@@ -45,6 +44,13 @@ const ConversationsContent = (props) => {
 };
 
 let HOCConversationContent = withRouter(ConversationsContent);
+
+ConversationsContent.propTypes = {
+    conversations: PropTypes.array,
+    currentConversationId: PropTypes.object,
+    currentConversation: PropTypes.number,
+    getConversation: PropTypes.func
+};
 
 const mapStateToProps = (state) => {
     return {

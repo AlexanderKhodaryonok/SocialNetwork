@@ -37,16 +37,21 @@ const usersPageReducer = (state = initialState, action) => {
 };
 
 export default usersPageReducer;
-
+//actions creators
 export const setStatus = (status) => ({type: SET_STATUS, status: status});
 export const setUsers = (users) => ({type: SET_USERS, users});
 export const clearUsers = () => ({type: CLEAR_USERS});
-
-export const getUsers = (page , count = 5) => (dispatch) => {
-    dispatch(setStatus(statuses.IN_PROGRESS));
-    axios.get(`users?page=${page}&count=${count}`).then (res =>{
-        dispatch(setStatus(statuses.SUCCESS));
-        dispatch(setUsers(res.data.items));
-
-    });
+//thunk creators
+export const getUsers = (page , count = 5) => {
+    return async (dispatch) => {
+        try {
+            dispatch(setStatus(statuses.IN_PROGRESS));
+            const success = await axios.get(`users?page=${page}&count=${count}`);
+            dispatch(setStatus(statuses.SUCCESS));
+            dispatch(setUsers(success.data.items));
+        }
+        catch (error) {
+            alert(error.message);
+        }
+    };
 };

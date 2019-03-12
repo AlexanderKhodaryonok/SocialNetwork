@@ -1,16 +1,13 @@
 import React from 'react';
-import Header from "../Header/Header";
 import SideBar from "../SideBar/SideBar";
 import style from "./usersPage.module.css";
 import UsersContentContainer from "../Container components/UsersContentContainer";
-import {changeCaptcha, statuses} from "../../Redux-BLL/Reducers/loginPageReducer";
-import {connect} from "react-redux";
-import InProgressPage from "../InProgressPage/InProgressPage";
-//если поставить сюда крутилку, то происиходит зацикливание
-const UsersPage = (props) => {
+import ConnectedHeader from "../Container components/HeaderContainer";
+
+const UsersPage = () => {
     return (
             <>
-                <Header/>
+                <ConnectedHeader/>
                 <div className={style.wrapper}>
                     <div className={style.content}>
                         <SideBar/>
@@ -21,31 +18,5 @@ const UsersPage = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        status: state.usersPage.status
-    }
-};
 
-const connectedUsersPage = connect(mapStateToProps, null)(UsersPage);
-
-export default connectedUsersPage;
-
-/*
-const UsersPage = (props) => {
-    return (
-        <>{props.status === statuses.IN_PROGRESS ?
-            <InProgressPage/> :
-            <>
-                <Header/>
-                <div className={style.wrapper}>
-                    <div className={style.content}>
-                        <SideBar/>
-                        <UsersContentContainer/>
-                    </div>
-                </div>
-            </>}
-        </>
-    );
-};
- */
+export default UsersPage;

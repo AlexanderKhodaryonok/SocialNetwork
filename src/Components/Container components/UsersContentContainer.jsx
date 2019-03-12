@@ -2,11 +2,11 @@ import React from 'react';
 import {connect} from "react-redux";
 import UsersContent from "../UsersPage/UsersContent/UsersContent";
 import {clearUsers, getUsers} from "../../Redux-BLL/Reducers/usersPageReducer";
+import PropTypes from 'prop-types';
 
 class UsersContentContainer extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             page: 1
         };
@@ -50,4 +50,12 @@ const mapDispatchToProps= (dispatch) => {
     }
 };
 
+UsersContentContainer.propTypes = {
+    users: PropTypes.array,
+    status: PropTypes.string,
+    getUsers: PropTypes.func,
+    clearUsers: PropTypes.func
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContentContainer);
+

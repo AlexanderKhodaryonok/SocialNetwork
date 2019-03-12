@@ -1,14 +1,14 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import style from './usersContent.module.css'
+import PropTypes from 'prop-types';
 
-const UsersContent = (props) => {
-
+const UsersContent = ({users, showMoreUsers}) => {
     return (
         <div className={style.wrapper}>
-            {!props.users.length && <span>users not found</span>}
+            {!users.length && <span>users not found</span>}
             {
-                props.users.map(user => <div key={user.id} className={style.itemsBlock}>
+                users.map(user => <div key={user.id} className={style.itemsBlock}>
                     <div className={style.item}>
                         <div>
                             <img className={style.image} src={user.photo} alt='avatar'/>
@@ -20,9 +20,14 @@ const UsersContent = (props) => {
                     </div>
                 </div>)
             }
-            <button onClick={props.showMoreUsers} > Show More </button>
+            <button onClick={showMoreUsers} > Show More </button>
         </div>
     )
+};
+
+UsersContent.propTypes = {
+    users: PropTypes.array,
+    showMoreUsers: PropTypes.func,
 };
 
 export default UsersContent;

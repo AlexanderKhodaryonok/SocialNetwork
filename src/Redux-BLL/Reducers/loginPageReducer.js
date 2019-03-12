@@ -76,6 +76,35 @@ export const setMessage = (message) => ({type: SET_MESSAGE, text: message});
 export const setCaptchaUrl = (url) => ({type: SET_CAPTCHA, url});
 export const changeCaptcha = (text) => ({type: CHANGE_CAPTCHA, text: text.currentTarget.value});
 //thunkCreators
+//сделать вывод в окно при ошибке в логине/пароле
+export const loginClick= (login, password, rememberMe, captcha) => {
+    return async (dispatch) => {
+        try {
+            dispatch(setStatus(statuses.IN_PROGRESS));
+            const success = await axios.post ('auth/login', {
+                email: login,
+                password: password,
+                rememberMe: rememberMe,
+                captcha: captcha
+            });
+            if (success.data.resultCode === 0) {
+                dispatch(setStatus(statuses.SUCCESS));
+                dispatch(setIsAuth(true));
+                dispatch(me());
+            } else if (success.data.resultCode === 10) {
+            const captcha = await axios.get ('security/get-captcha-url');
+                    dispatch(setStatus(statuses.ERROR));
+                    dispatch(setCaptchaUrl(captcha.data.url));
+            }}
+        catch (error) {
+            alert(error.message);
+            dispatch(setStatus(statuses.ERROR));
+            dispatch(setMessage(error.data.messages[0]));
+        }
+    }
+};
+
+/*
 export const loginClick= (login, password, rememberMe, captcha) => {
     return (dispatch) => {
         dispatch(setStatus(statuses.IN_PROGRESS));
@@ -103,6 +132,7 @@ export const loginClick= (login, password, rememberMe, captcha) => {
         })
     };
 };
+ */
 
 let initialState = {
     captchaUrl: null,

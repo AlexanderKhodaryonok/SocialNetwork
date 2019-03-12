@@ -6,10 +6,10 @@ import Message from "./Message/Message";
 import {connect} from "react-redux";
 import {getConversation} from "../../../../Redux-BLL/Reducers/conversationsPageReducer";
 
+const Messages = ({ currentConversation, match }) => {
 
-const Messages = (props) => {
-    let messagesTags = props.currentConversation.messages.map((message) => {
-        return <Message message={message}/>
+    let messagesTags = currentConversation.messages.map((message) => {
+        return <Message message={message} key={message.id}/>
     });
 
     return (
@@ -19,7 +19,7 @@ const Messages = (props) => {
             </div>
             <div className={style.postingBlock}>
                 <TextField/>
-                <Button match={props.match}/>
+                <Button match={match}/>
             </div>
         </div>
     )

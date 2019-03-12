@@ -5,10 +5,10 @@
     justify-content: center;
 }
 .noMessagesText{
-    font-size: 40px;
+    font-size: 300%;
     background-color: #343235;
-    width: 500px;
-    height: 300px;
+    width: 80%;
+    height: 80%;
     border-radius: 20px;
     justify-content: center;
     display: flex;

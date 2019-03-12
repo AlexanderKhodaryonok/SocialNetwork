@@ -1,13 +1,13 @@
 import React from 'react';
 import style from './profilePage.module.css';
-import Header from '../Header/Header.js';
 import SideBar from '../SideBar/SideBar.js';
 import ProfileContent from "./ProfileContent/ProfileContent.js";
+import ConnectedHeader from "../Container components/HeaderContainer";
 
 const ProfilePage = () => {
     return (
         <>
-            <Header/>
+            <ConnectedHeader/>
             <div className={style.wrapper}>
                 <div className={style.content}>
                     <SideBar/>

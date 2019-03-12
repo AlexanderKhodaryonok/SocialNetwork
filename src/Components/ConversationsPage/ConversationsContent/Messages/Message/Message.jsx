@@ -1,19 +1,24 @@
 import React from 'react';
 import style from './message.module.css';
+import PropTypes from 'prop-types';
 
-const Message = (props) => {
+const Message = ({message}) => {
 
     return (
         <div className={style.wrapper}>
             <div className={style.info}>
-                <img className={style.avatar} src={props.message.img}  alt={'Avatar'}/>
-                {props.message.name}
+                <img className={style.avatar} src={message.img}  alt={'Avatar'}/>
+                {message.name}
             </div>
             <div className={style.message}>
-                {props.message.text}
+                {message.text}
             </div>
         </div>
     );
 };
+
+Message.propTypes = {
+    message: PropTypes.object
+}
 
 export default Message;

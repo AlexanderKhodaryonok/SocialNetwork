@@ -1,16 +1,22 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import style from './SideBarNavItem.module.css';
+import PropTypes from 'prop-types';
 
-const SideBarNavItem = (props) => {
+const SideBarNavItem = ({label, path, location, match}) => {
 
-    let isMenuItemSelected = props.location.pathname === props.path || props.location.pathname === `${props.path}${props.match.params.id}`;
+    let isMenuItemSelected = location.pathname === path || location.pathname === `${path}${match.params.id}`;
 
     return (
         <div className={style.menuItem + ' ' + (isMenuItemSelected ? style.activeItemBlock : '') } >
-            <NavLink to={props.path} activeClassName={style.active} className={style.navItem} >{props.label}</NavLink>
+            <NavLink to={path} activeClassName={style.active} className={style.navItem} >{label}</NavLink>
         </div>
     );
+};
+
+SideBarNavItem.ropTypes = {
+    path: PropTypes.string,
+    label: PropTypes.string,
 };
 
 export default SideBarNavItem;

@@ -1,14 +1,15 @@
 import React from "react";
 import Header from "../Header/Header";
-import {loginClick} from "../../Redux-BLL/Reducers/loginPageReducer";
-import connect from "react-redux/es/connect/connect";
-import {me} from "../../Redux-BLL/Reducers/AuthReducer";
+import {logout, me} from "../../Redux-BLL/Reducers/AuthReducer";
+import PropTypes from 'prop-types';
+import {connect} from "react-redux";
 
 class HeaderContainer extends React.Component {
-    componentWillMount(){
+    componentWillMount() {
         this.props.me();
     }
-    render(){
+
+    render() {
         return <Header {...this.props}/>
     }
 }
@@ -17,19 +18,25 @@ const mapStateToProps = (state) => {
     return {
         isAuth: state.authData.isAuth,
         userInfo: state.authData.userInfo,
-        userFirstName: state.profilePage.userFirstName
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLoginButtonClick: () => {
-            dispatch(loginClick())
+        me:  () => dispatch(me()),
+
+        logout: () => {
+            dispatch(logout());
         },
-        me: () => () => dispatch(me())
     }
 };
 
-const connectedHeader = connect (mapStateToProps, mapDispatchToProps)(HeaderContainer);
+HeaderContainer.propTypes = {
+    isAuth: PropTypes.bool,
+    userInfo: PropTypes.object,
+    logout: PropTypes.func
+};
 
-export default connectedHeader;
+const ConnectedHeader = connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);
+
+export default ConnectedHeader;
