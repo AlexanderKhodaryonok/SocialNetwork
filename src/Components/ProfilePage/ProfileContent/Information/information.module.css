@@ -28,3 +28,13 @@
 .hide {
     display: none;
 }
+
+.contactsBlock div {
+    color: white;
+}
+
+.editButton{
+    margin-left: auto;
+    color: rgb(66, 235, 244);
+    font-size: 15px;
+}

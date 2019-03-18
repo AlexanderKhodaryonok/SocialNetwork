@@ -1,8 +1,10 @@
 import React from 'react';
 import SideBar from "../SideBar/SideBar";
 import style from "./usersPage.module.css";
-import UsersContentContainer from "../Container components/UsersContentContainer";
+import UsersContentHook from "../Container components/UsersContentHook";
+
 import ConnectedHeader from "../Container components/HeaderContainer";
+import UsersContentContainer from "../Container components/UsersContentContainer";
 
 const UsersPage = () => {
     return (

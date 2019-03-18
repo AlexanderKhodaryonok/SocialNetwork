@@ -14,10 +14,10 @@ const LoginButtons = (props) => {
     return (
         <div className={style.wrapper}>
             <div>
-                <input className={style.loginRemember} type="checkbox" onClick={(e) => {
+                <input name = 'q' className={style.loginRemember} type="checkbox" onClick={(e) => {
                     props.setRememberMe(e.currentTarget.checked)
                 }}/>
-                <lable> Remember Me</lable>
+                <label htmlFor='q'> Remember Me</label>
             </div>
             <button disabled={props.status === statuses.IN_PROGRESS} className={cssClasses} onClick={(e) => {
                 props.onLoginButtonClick(

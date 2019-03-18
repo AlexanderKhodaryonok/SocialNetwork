@@ -12,7 +12,8 @@ class UsersContentContainer extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        this.props.users && this.props.clearUsers()
         this.showMoreUsers();
     }
 
@@ -21,6 +22,7 @@ class UsersContentContainer extends React.Component {
     }
 
     showMoreUsers = () => {
+        console.log("showMoreUsers")
         this.props.getUsers(this.state.page);
         this.setState({
             page: this.state.page + 1,
@@ -34,6 +36,7 @@ class UsersContentContainer extends React.Component {
 
 const mapStateToProps= (state) => {
     return {
+        defaultPhoto: state.usersPage.defaultPhoto,
         users: state.usersPage.users,
         status: state.usersPage.status
     }
@@ -55,7 +58,7 @@ UsersContentContainer.propTypes = {
     status: PropTypes.string,
     getUsers: PropTypes.func,
     clearUsers: PropTypes.func
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContentContainer);
 

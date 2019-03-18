@@ -23,7 +23,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        me:  () => dispatch(me()),
+        me:  () => {
+            dispatch(me());
+        },
 
         logout: () => {
             dispatch(logout());

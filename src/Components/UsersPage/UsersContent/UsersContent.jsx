@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import style from './usersContent.module.css'
 import PropTypes from 'prop-types';
 
-const UsersContent = ({users, showMoreUsers}) => {
+const UsersContent = ({users, showMoreUsers, defaultPhoto}) => {
     return (
         <div className={style.wrapper}>
             {!users.length && <span>users not found</span>}
@@ -11,7 +11,11 @@ const UsersContent = ({users, showMoreUsers}) => {
                 users.map(user => <div key={user.id} className={style.itemsBlock}>
                     <div className={style.item}>
                         <div>
-                            <img className={style.image} src={user.photo} alt='avatar'/>
+                            {
+                                user.photos.small &&
+                                <img className={style.image} src={user.photos.small} alt='avatar'/> ||
+                                <img className={style.image} src={defaultPhoto} alt='avatar'/>
+                            }
                         </div>
                         <div>
                             <NavLink to={`users/${user.id}`}>{user.name}</NavLink>

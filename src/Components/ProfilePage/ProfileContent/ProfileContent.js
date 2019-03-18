@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import style from './profileContent.module.css';
-import Information from "./Information/Information.js";
 import MyNotes from "./MyNotes/MyNotes.js";
 import {connect} from "react-redux";
+import InformationContainer from "../../Container components/InformationContainer";
 
 const ProfileContent = (props) => {
     return (
@@ -10,7 +10,7 @@ const ProfileContent = (props) => {
             <img className={style.backgroundPicture}
                  src={props.backgroundImage}
                  alt='background'/>
-            <Information />
+            <InformationContainer />
             <MyNotes />
         </div>
     );
@@ -22,6 +22,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-const connectedProfileContent = connect(mapStateToProps, null)(ProfileContent)
-
-export default connectedProfileContent;
+export default connect(mapStateToProps, null)(ProfileContent)

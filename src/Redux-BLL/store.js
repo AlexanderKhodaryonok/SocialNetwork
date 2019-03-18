@@ -5,6 +5,7 @@ import loginPageReducer from "./Reducers/loginPageReducer";
 import authReducer from "./Reducers/AuthReducer";
 import thunk from "redux-thunk";
 import usersPageReducer from "./Reducers/usersPageReducer";
+import { reducer as formReducer } from 'redux-form'
 
 export let guid = () => {
     function s4() {
@@ -20,7 +21,8 @@ const jointReducer = combineReducers({
     profilePage: profilePageReducer,
     loginPage: loginPageReducer,
     authData: authReducer,
-    usersPage: usersPageReducer
+    usersPage: usersPageReducer,
+    form: formReducer
 });
 
 const store = createStore(jointReducer, applyMiddleware(thunk));

@@ -10,8 +10,9 @@ import InProgressPage from "../InProgressPage/InProgressPage";
 import PropTypes from 'prop-types';
 
 const LoginPage = ({isAuth, status, captchaUrl, changeCaptcha, message}) => {
+
     if (isAuth) {
-        return <Redirect to='/profile'/>
+        return <Redirect to='/news'/>
     }
 
     let loginTitleText =

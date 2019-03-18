@@ -65,7 +65,6 @@ const loginPageReducer = (state = initialState, action) => {
             return state;
     }
 };
-
 export default loginPageReducer;
 //actionCreators
 export const onLoginChange = (text) => ({ type: CHANGE_LOGIN, text: text.currentTarget.value });
@@ -103,36 +102,6 @@ export const loginClick= (login, password, rememberMe, captcha) => {
         }
     }
 };
-
-/*
-export const loginClick= (login, password, rememberMe, captcha) => {
-    return (dispatch) => {
-        dispatch(setStatus(statuses.IN_PROGRESS));
-        axios.post ('auth/login', {
-            email: login,
-            password: password,
-            rememberMe: rememberMe,
-            captcha: captcha
-        }).then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setStatus(statuses.SUCCESS));
-                dispatch(setIsAuth(true));
-                dispatch(me())
-            } else if (res.data.resultCode === 10) {
-                axios.get ('security/get-captcha-url')
-                    .then(res => {
-                        dispatch(setStatus(statuses.ERROR));
-                        dispatch(setCaptchaUrl(res.data.url));
-                    })
-            }
-            else {
-                dispatch(setStatus(statuses.ERROR));
-                dispatch(setMessage(res.data.messages[0]));
-            }
-        })
-    };
-};
- */
 
 let initialState = {
     captchaUrl: null,

@@ -1,6 +1,12 @@
 import axios from '../axios/axios-instance';
+import React from "react";
+import store from "../store";
+
+//selectors
+export const isAuthSelector = (state) => state.authData.isAuth;
 
 const initialState = {
+    status: 'INIT',
     isAuth: false,
     userInfo: {
         userName: null,
@@ -19,13 +25,14 @@ const authReducer = (state = initialState, action) => {
                 ...state, isAuth: action.value
             };
         case SET_USER_INFO:
-            return {
+            let newState = {
                 ...state, userInfo: {
                     ...state.userInfo,
                     userName: action.userName,
                     userId: action.userId
                 }
             };
+            return newState
         default:
             return state;
     }
@@ -37,45 +44,43 @@ export const setIsAuth = (bool) => ({type: SET_IS_AUTH, value: bool});
 export const setUserInfo = (userId, userName,) => ({type: SET_USER_INFO, userId, userName});
 
 export const logout = () => {
-    return async  (dispatch) => {
+    return async (dispatch) => {
         try {
-            await axios.post('auth/logout')
+            await axios.post('auth/logout');
             dispatch(setIsAuth(false));
             dispatch(setUserInfo(null, null));
-        }
-        catch (error) {
+        } catch (error) {
             console.log(error.message);
         }
     }
 };
-//     export const logout = () => (dispatch) => {
-//     axios.post('auth/logout')
-//         .then(res => {
-//             if (res.data.resultCode === 0) {
-//                 dispatch(setIsAuth(false));
-//                 dispatch(setUserInfo(null, null));
-//             }
-//         })
-// };
+/*export const me = () => {
+axios.get('auth/me')
+    .then(res => {
+        if (res.data.resultCode === 0) {
+            store.dispatch(setIsAuth(true));
+            store.dispatch(setUserInfo(res.data.data.id, res.data.data.login));
+        }
+    });
+}*/
+
+
 
 export const me = () => {
+
     return async (dispatch) => {
+
         try {
             const success = await axios.get('auth/me');
-            dispatch(setIsAuth(true));
-            dispatch(setUserInfo(success.data.data.id, success.data.data.login));
+            if (success.data.resultCode === 0) {
+                dispatch(setIsAuth(true));
+                dispatch(setUserInfo(success.data.data.id, success.data.data.login));
+            } else
+            if (success.data.resultCode === 1) {
+                alert ('insert correct login/password')
+            }
         } catch (error) {
             console.log(error.message);
         }
     };
 };
-
-// export const me = () => (dispatch) => {
-//     axios.get('auth/me')
-//         .then(res => {
-//             if (res.data.resultCode === 0) {
-//                 dispatch(setIsAuth(true));
-//                 dispatch(setUserInfo(res.data.data.id, res.data.data.login));
-//             }
-//         })
-// };

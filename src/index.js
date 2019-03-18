@@ -9,15 +9,15 @@ import style from "./index.module.css";
 import axios from "./Redux-BLL/axios/axios-instance";
 import {setIsAuth, setUserInfo} from "./Redux-BLL/Reducers/AuthReducer";
 
-/*axios.get('auth/me')
-    .then(res => {
-        if (res.data.resultCode === 0) {
-            store.dispatch(setIsAuth(true));
-            store.dispatch(setUserInfo(res.data.data.id, res.data.data.login));
-        }
-    });*/
+axios.get('auth/me')
+     .then(res => {
+         if (res.data.resultCode === 0) {
+             store.dispatch(setIsAuth(true));
+             store.dispatch(setUserInfo(res.data.data.id, res.data.data.login));
+             console.log('id dispatched')
+         }
+     });
 
-const renderAll = () => {
     ReactDOM.render(
         <Provider store={store}>
         <BrowserRouter>
@@ -27,10 +27,4 @@ const renderAll = () => {
         , document.getElementById('root'));
 
     serviceWorker.unregister();
-};
 
-store.subscribe(renderAll);
-
-renderAll();
-
-export default renderAll;

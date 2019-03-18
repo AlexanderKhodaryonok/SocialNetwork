@@ -6,17 +6,23 @@ import LoginPage from "./Components/LoginPage/LoginPage";
 import style from "./App.module.css";
 import UsersPage from "./Components/UsersPage/UsersPage";
 import Error404Page from "./Components/Error404Page/Error404Page";
+import ProfileEdit from './Components/ProfileEdit/ProfileEdit'
+import NewsPage from "./Components/NewsPage/NewsPage";
 
 const App = () =>{
 
     return (
         <div className={style.wrapper}>
             <Switch>
-                <Route exact path='/'
-                       render={() => <ProfilePage /> } />
+               <Route exact path='/'
+                       render={() => <NewsPage /> } />
+                <Route exact path='/news'
+                       render={() => <NewsPage /> } />
                 <Route path='/conversations/:id?'
                        render={() => <ConversationsPage /> } />
-                <Route path='/profile'
+                <Route path='/profile/edit'
+                       render={() => <ProfileEdit /> } />
+                <Route path='/profile/:id?'
                        render={() => <ProfilePage /> } />
                 <Route path='/login'
                        render={() => <LoginPage /> } />
