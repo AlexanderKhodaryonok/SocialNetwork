@@ -10,7 +10,6 @@ import InProgressPage from "../InProgressPage/InProgressPage";
 import PropTypes from 'prop-types';
 
 const LoginPage = ({isAuth, status, captchaUrl, changeCaptcha, message}) => {
-
     if (isAuth) {
         return <Redirect to='/news'/>
     }
@@ -38,7 +37,9 @@ const LoginPage = ({isAuth, status, captchaUrl, changeCaptcha, message}) => {
             <InProgressPage /> :
             <div className={style.wrapper}>
                 <div className={style.loginTitleBlock}>
-                    {loginTitleTags}
+                    {
+                        loginTitleTags
+                    }
                 </div>
                 <div className={style.RegistrationFormBlock}>
                     <RegistrationForm/>

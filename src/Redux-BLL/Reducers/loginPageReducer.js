@@ -19,6 +19,7 @@ export const statuses = {
 };
 
 const loginPageReducer = (state = initialState, action) => {
+    debugger
     switch (action.type) {
 
         case REMEMBER_ME:
@@ -49,7 +50,7 @@ const loginPageReducer = (state = initialState, action) => {
         case SET_MESSAGE:
             return {
                 ...state,
-                massage: action.text
+                message: action.text
             };
         case CHANGE_CAPTCHA:
             return {
@@ -77,6 +78,7 @@ export const changeCaptcha = (text) => ({type: CHANGE_CAPTCHA, text: text.curren
 //thunkCreators
 //сделать вывод в окно при ошибке в логине/пароле
 export const loginClick= (login, password, rememberMe, captcha) => {
+    debugger
     return async (dispatch) => {
         try {
             dispatch(setStatus(statuses.IN_PROGRESS));
@@ -90,6 +92,9 @@ export const loginClick= (login, password, rememberMe, captcha) => {
                 dispatch(setStatus(statuses.SUCCESS));
                 dispatch(setIsAuth(true));
                 dispatch(me());
+            } else if (success.data.resultCode === 1) {
+                dispatch(setStatus(statuses.ERROR));
+                dispatch(setMessage(success.data.messages[0]));
             } else if (success.data.resultCode === 10) {
             const captcha = await axios.get ('security/get-captcha-url');
                     dispatch(setStatus(statuses.ERROR));

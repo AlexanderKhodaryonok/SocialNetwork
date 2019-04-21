@@ -54,22 +54,9 @@ export const logout = () => {
         }
     }
 };
-/*export const me = () => {
-axios.get('auth/me')
-    .then(res => {
-        if (res.data.resultCode === 0) {
-            store.dispatch(setIsAuth(true));
-            store.dispatch(setUserInfo(res.data.data.id, res.data.data.login));
-        }
-    });
-}*/
-
-
 
 export const me = () => {
-
     return async (dispatch) => {
-
         try {
             const success = await axios.get('auth/me');
             if (success.data.resultCode === 0) {
